@@ -9,10 +9,10 @@ import urllib.request
 from sumy.parsers.plaintext import PlaintextParser
 from sumy.nlp.tokenizers import Tokenizer
 from sumy.summarizers.lsa import LsaSummarizer
-nltk.download('averaged_perceptron_tagger')
-nltk.download("stopwords")
-nltk.download("punkt")
-nltk.download('universal_tagset')
+nl.download('averaged_perceptron_tagger')
+nl.download("stopwords")
+nl.download("punkt")
+nl.download('universal_tagset')
 # Initialize Flask app
 app = Flask(__name__)
 oauth =OAuth(app)

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display Data</title>
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url(https://img.freepik.com/free-vector/blue-polygonal-technology-background_1035-7558.jpg?t=st=1709915006~exp=1709918606~hmac=85dc1d389a4696c6d3a446052fcd7452c124acee2e0d25494df22f41c5caeb04&w=740); /* Replace 'your-background-image.jpg' with the path to your background image */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            margin: 10px auto;
+            background-color: rgba(255, 255, 255, 0.7); /* Adjust the opacity as needed */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 1200px; /* Limit container width */
+            margin-top: 50px; /* Move container down */
+        }
+        h1 {
+            text-align: center;
+            font-size: 36px; /* Adjust the font size as needed */
+            color: #333; /* Choose a suitable color */
+            text-transform: uppercase; /* Convert text to uppercase */
+            margin-bottom: 20px; /* Add some space below the heading */
+            letter-spacing: 2px; /* Adjust letter spacing for better readability */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow effect */
+        }
+
+        .data-item {
+            margin-bottom: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9; /* Light background color for data items */
+        }
+
+        .data-item h4 {
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .button {
+            display: inline-block;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+    </style>
+</head>
+<body style="margin-top: 100px;"> 
+    <div><a href="{{url_for('get_history')}}" class="button">Admin Login</a></div>
+    <div class="container">
+        <h1>Table of News Analyzation</h1>
+        <!-- Display Data Manually -->
+        {% if msg_data %}
+            {% for msg in msg_data %}
+                <div class="data-item">
+                    <h4>No of Sentence: {{ msg[0] }}</h4><br>
+                    <h4>No of Words: {{ msg[1] }}</h4><br>
+                    <h4>No Pos Tag: {{ msg[2] }}</h4><br>
+                    <h4>Type of News: {{ msg[3] }}</h><br>
+                    <!-- Add more data items if needed -->
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</body>
+</html>

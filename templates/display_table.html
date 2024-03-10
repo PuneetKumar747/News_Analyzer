@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display Data</title>
+    <style>
+body {
+    font-family: Arial, sans-serif;
+    background-image:url('Pyhton_Project\static\SL-112119-25250-40.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+    color: #0f0e0e; /* Text color for better contrast with background */
+}
+
+.container {
+    margin: 20px auto;
+    background-color: rgba(118, 192, 187, 0.465); /* Adjust the opacity as needed */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 1000px; /* Limit container width */
+    margin-top: 100px; /* Move container down */
+}
+
+h1 {
+    text-align: center;
+    font-size: 36px; /* Larger font size */
+    margin-bottom: 20px; /* Add some space below h1 */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow for better visibility */
+    color: #333; /* Darken the text color for better readability */
+}
+
+.data-item {
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9; /* Light background color for data items */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+}
+
+.data-item h4 {
+    margin-bottom: 5px;
+    font-size: 15px;
+    color: #262626; /* Darken the text color for better readability */
+}
+
+.button {
+    display: inline-block;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+.summary{
+    border:2px solid black;
+    border-radius: 10px;
+}
+
+
+    </style>
+</head>
+<body style="margin-top: 100px;"> 
+    <div><a href="{{url_for('get_history')}}" class="button">View History</a></div>
+    <div class="container">
+        <h1>Table of News Analyzation</h1>
+        <!-- Display Data Manually -->
+        {% if msg_data %}
+            {% for msg in msg_data %}
+                <div class="data-item">
+                <div class="data" ><h4>No of Sentence: {{ msg[1] }}</h4></div> 
+                <div class="items"><h4>No of Words: {{ msg[2] }}</h4></div>   
+                <div style="border: 2px solid black;border-radius: 10px;background-color: rgb(217, 216, 216);padding:20px"><div style="font-weight: 700;">No Pos Tag</div>{{ msg[3] }}</div> 
+                <div class="Type"><h4>Type of News: {{ msg[4] }}</h4></div>   
+                <div style="border: 2px solid black;border-radius: 10px;background-color: rgb(217, 216, 216);padding:20px"><div style="font-weight: 700;">News Summary:</div><br>{{ msg[0] }}</div> 
+                    <!-- Add more data items if needed -->
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</body>
+</html>

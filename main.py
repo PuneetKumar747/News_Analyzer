@@ -26,7 +26,7 @@ github = oauth.register(name ='github',client_id = app.config['GITHUB_CLIENT_ID'
 )
 
 conn=psycopg2.connect(
-    host="localhost",database='dhp2024',user='postgres',password='54321'
+    host="dpg-cnmnrf2cn0vc738f4j60-a",database='puneet_kumar',user='puneet_kumar_user',password='jFa3zNVSR8AQcQpLo7HAlQxwFxl1CGAn', port="5432"
 )
 cur=conn.cursor()
 

@@ -14,7 +14,8 @@ nl.download("stopwords")
 nl.download("punkt")
 nl.download('universal_tagset')
 # Initialize Flask app
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
+
 oauth =OAuth(app)
 app.config['SECRET_KEY'] = 'Puneet'
 app.config['GITHUB_CLIENT_ID'] ="33925839a7b51db0d714"

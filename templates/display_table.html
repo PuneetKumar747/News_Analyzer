@@ -78,6 +78,7 @@ h1 {
         {% if msg_data %}
             {% for msg in msg_data %}
                 <div class="data-item">
+                <div class="date"><h4>Publised Date: {{ msg[5]}}</h4></div>
                 <div class="data" ><h4>No of Sentence: {{ msg[1] }}</h4></div> 
                 <div class="items"><h4>No of Words: {{ msg[2] }}</h4></div>   
                 <div style="border: 2px solid black;border-radius: 10px;background-color: rgb(217, 216, 216);padding:20px"><div style="font-weight: 700;">No Pos Tag</div>{{ msg[3] }}</div> 

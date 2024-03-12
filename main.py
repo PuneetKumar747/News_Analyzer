@@ -55,6 +55,8 @@ def extract_and_process_content(url):
         main_title = soup.find('h1', class_='jsx-ace90f4eca22afc7 Story_strytitle__MYXmR').text
 
         # Removing specified div elements
+        auth_date = soup.find('div', class_='published__on')
+        date_text = auth_date.text.strip().split(':')[1]
         for div in soup.find_all('div', class_=['authors__container', 'tab-link']):
             div.decompose()
         for fox in soup.find_all('div', id=['tab-link-wrapper-plugin', '1']):
@@ -129,38 +131,10 @@ def extract_and_process_content(url):
                 break
         type_of_news = category
 
-        return news_text,no_of_sentence, no_of_words, no_of_pos_tag_json, type_of_news, News_summary
+        return news_text,no_of_sentence, no_of_words, no_of_pos_tag_json, type_of_news, News_summary, date_text
     except:
         return "Error in extracting and processing content"
 
-# Route for the main page
-# @app.route("/", methods=["POST", "GET"])
-# def index():
-#     msg_data = ""
-#     if request.method == "POST":
-#         url = request.form["url"]
-#         news_text, no_of_sentence, no_of_words, no_of_pos_tag_json, type_of_news = extract_and_process_content(url)
-  
-#         # Insert data into the News_Summary table
-#         cur.execute('''
-#             INSERT INTO News_Summary(News_Text, No_of_Sentence, No_of_Words, No_of_Pos_Tag, Type_of_News, URL)
-#             VALUES (%s, %s, %s, %s, %s, %s)
-#         ''',( news_text, no_of_sentence, no_of_words, no_of_pos_tag_json, type_of_news, url))
-#         conn.commit()
-#         msg_data = "News Summary added successfully!"
-
-#         cur.execute('SELECT * FROM News_Summary order by ID DESC LIMIT 1')
-#         msg_data = cur.fetchall()
-       
-#         # News_Text TEXT NOT NULL,
-#             # No_of_Sentence INT NOT NULL,
-#             # No_of_Words INT NOT NULL,
-#             # No_of_Pos_Tag JSON NOT NULL,
-#             # Type_of_News TEXT NOT NULL,
-#             # URL TEXT NOT NULL
-            
-#     return render_template("News.html", msg_data=msg_data)
-# # print('hi')
 @app.route('/')
 def index():
     return render_template('search_form.html')
@@ -172,7 +146,7 @@ def search():
                 if 'https://www.indiatoday.in/' not in url:
                     error = 'Please provide india today news article URL ONLY'
                     return render_template('search_form.html',error = error)
-                news_text,no_of_sentence, no_of_words, no_of_pos_tag_json, type_of_news, News_summary = extract_and_process_content(url)
+                news_text,no_of_sentence, no_of_words, no_of_pos_tag_json, type_of_news, News_summary, date_text = extract_and_process_content(url)
         
                 # Insert data into the News_Summary table
                 cur.execute('''
@@ -181,7 +155,7 @@ def search():
                 ''', (news_text, no_of_sentence, no_of_words, no_of_pos_tag_json, type_of_news, url))
                 conn.commit()
 
-                return render_template("display_table.html", msg_data=[(News_summary, no_of_sentence, no_of_words, no_of_pos_tag_json, type_of_news)])
+                return render_template("display_table.html", msg_data=[(News_summary, no_of_sentence, no_of_words, no_of_pos_tag_json, type_of_news, date_text)])
             except Exception as e:
 
                 error_message = str(e)
@@ -191,7 +165,7 @@ def search():
 
 
     
-    # return render_template("search_form.html",)
+# return render_template("search_form.html",)
 @app.route('/history', methods = ['GET'])
 def get_history():
     return render_template('admin.html')
@@ -206,6 +180,10 @@ def post_history():
         return render_template('History.html',his_data=his_data)
     else:
         return jsonify('Unauthorizes access')
+# to come on home page
+@app.route('/', methods = ['GET'])
+def come_back():
+    return render_template('search_form.html')
 # Github login route
 @app.route('/login/github')
 def github_login():

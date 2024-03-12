@@ -163,6 +163,12 @@ def search():
             
         return render_template('search_form.html')
 
+@app.route('/history_MAIN')
+def history_MAIN():
+    cur.execute('SELECT * FROM News_Summary order by ID DESC ')
+    his_data = cur.fetchall()
+    return render_template('History.html',his_data=his_data)
+    
 
     
 # return render_template("search_form.html",)
